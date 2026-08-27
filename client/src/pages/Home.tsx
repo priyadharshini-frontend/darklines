@@ -1,0 +1,71 @@
+/*
+ * Industrial Cartography reminder: Darklines shipping site with warm paper, ink navy,
+ * burnt sienna actions, route motifs, and direct operational language.
+ */
+import { useEffect, useState } from "react";
+import type { CSSProperties } from "react";
+import { Anchor, ArrowDownRight, ArrowRight, Boxes, Check, ChevronRight, ClipboardCheck, Container, Globe2, Headphones, Mail, MapPin, Menu, MoveUpRight, PackageCheck, Plane, Route, Send, Ship, ShieldCheck, Truck, Warehouse, X } from "lucide-react";
+
+const slides = [
+  { image: "/manus-storage/harborline-hero_d9217430.jpg", code: "SEA / 01", title: "Ocean routes with a steady hand.", copy: "Containerized cargo, port coordination, and clear milestones from origin to handover." },
+  { image: "/manus-storage/darklines-air-banner_95ae673c.jpg", code: "AIR / 02", title: "When the clock is part of the cargo.", copy: "Time-sensitive freight planned around precise departures, documents, and arrivals." },
+  { image: "/manus-storage/darklines-road-banner_5e4f503a.jpg", code: "ROAD / 03", title: "The last mile deserves a route.", copy: "Road and multimodal moves connected into one practical operating plan." },
+];
+
+const services = [
+  ["01 / SEA", "Sea Freight", "Port-to-port and door-to-port coordination for dependable ocean moves.", Ship],
+  ["02 / AIR", "Air Freight", "Time-sensitive cargo planned around clear handovers and precise paperwork.", Plane],
+  ["03 / FWD", "Freight Forwarding", "One accountable route across carriers, terminals, and milestones.", Route],
+  ["04 / CUS", "Custom Clearance", "Documentation-first support for smooth movement through the border.", ClipboardCheck],
+  ["05 / WHS", "Warehousing", "Secure holding, inventory touchpoints, and a clean next departure.", Warehouse],
+  ["06 / PRJ", "Project Cargo", "Oversized and complex consignments mapped before they move.", Boxes],
+  ["07 / MMT", "Multimodal Transport", "Sea, road, rail, and air stitched into a single operating plan.", Truck],
+  ["08 / PKG", "Industrial Packaging", "Export-ready packing built around the cargo, not a template.", PackageCheck],
+] as const;
+
+function Brand() { return <a href="#top" className="brand-lockup" aria-label="Darklines Shipping Company home"><img className="brand-image" src="/images/im3.webp" alt="Darklines Shipping Company logo" /><small className="brand-slogan">CONNECTING WORLDS. DELIVERING TRUST.</small></a>; }
+function Label({ code, children }: { code: string; children: string }) { return <div className="section-label"><span>{code}</span><i />{children}</div>; }
+
+export default function Home() {
+  const [slide, setSlide] = useState(0);
+  const [menu, setMenu] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [pointer, setPointer] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const updateRoute = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0);
+    };
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => entry.target.classList.toggle("is-visible", entry.isIntersecting)), { threshold: 0.18 });
+    document.querySelectorAll(".route-reveal").forEach((element) => observer.observe(element));
+    updateRoute();
+    window.addEventListener("scroll", updateRoute, { passive: true });
+    return () => { observer.disconnect(); window.removeEventListener("scroll", updateRoute); };
+  }, []);
+  useEffect(() => { if (paused) return; const id = window.setInterval(() => setSlide((value) => (value + 1) % slides.length), 6500); return () => window.clearInterval(id); }, [paused]);
+  const go = (value: number) => setSlide((value + slides.length) % slides.length);
+  const current = slides[slide];
+
+  return <div id="top" className="darklines-site">
+    <aside className="cargo-spine" aria-label="Page route progress"><span className="cargo-spine-label">CARGO ROUTE</span><div className="cargo-spine-track"><i style={{ transform: `scaleY(${scrollProgress / 100})` }} /></div>{["ABOUT", "SERVICES", "CAPABILITIES", "ENQUIRY"].map((label, index) => <a key={label} href={`#${["about", "services", "capabilities", "enquiry"][index]}`} className="cargo-stop" style={{ top: `${22 + index * 20}%` }}><span>{String(index + 1).padStart(2, "0")}</span><b>{label}</b></a>)}</aside>
+    <div className="top-strip"><div className="container top-strip-inner"><a href="tel:8428306116"><Headphones size={13} /> 8428306116</a><a className="hidden sm:inline-flex" href="mailto:infodarklines@yahoo.com"><Mail size={13} /> infodarklines@yahoo.com</a><span className="hidden md:inline">DISPATCH NOTE / 001</span><a href="#enquiry">REQUEST A ROUTE <ArrowRight size={13} /></a></div></div>
+    <header className="site-header"><div className="container header-inner"><Brand /><nav className="desktop-nav"><a href="#about">About</a><a href="#services">Services</a><a href="#capabilities">Capabilities</a><a href="#contact">Contact</a><a className="header-cta" href="#enquiry">Start a shipment <MoveUpRight size={14} /></a></nav><button className="menu-toggle" onClick={() => setMenu(!menu)} aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu}>{menu ? <X /> : <Menu />}</button></div>{menu && <nav className="mobile-nav"><div className="container">{[["#about", "About"], ["#services", "Services"], ["#capabilities", "Capabilities"], ["#contact", "Contact"]].map(([href, label]) => <a key={href} href={href} onClick={() => setMenu(false)}>{label}<ChevronRight size={15} /></a>)}<a className="mobile-cta" href="#enquiry" onClick={() => setMenu(false)}>Start a shipment <MoveUpRight size={14} /></a></div></nav>}</header>
+
+    <main>
+      <section className="ship-hero" style={{ "--pointer-x": `${pointer.x}px`, "--pointer-y": `${pointer.y}px` } as CSSProperties} onMouseEnter={() => setPaused(true)} onMouseLeave={() => { setPaused(false); setPointer({ x: 0, y: 0 }); }} onMouseMove={(event) => { const rect = event.currentTarget.getBoundingClientRect(); setPointer({ x: (event.clientX - rect.left - rect.width / 2) / 24, y: (event.clientY - rect.top - rect.height / 2) / 24 }); }} aria-labelledby="hero-title"><div className="hero-images" style={{ transform: `translateY(${scrollProgress * -0.08}px)` }} role="region" aria-roledescription="carousel" aria-label="Darklines shipping routes"><video className="hero-video" autoPlay muted loop playsInline poster="/manus-storage/harborline-hero_d9217430.jpg" aria-hidden="true"><source src="/manus-storage/darklines-hero-loop_110a31dc.mp4" type="video/mp4" /></video>{slides.map((item, index) => <div key={item.code} className={`hero-image ${index === slide ? "is-active" : ""}`} style={{ backgroundImage: `url(${item.image})` }} aria-hidden={index !== slide} />)}</div><div className="hero-overlay" /><svg className="hero-route" viewBox="0 0 900 300" fill="none" aria-hidden="true"><path d="M-20 270 C 150 260, 165 110, 330 180 S 530 305, 670 125 S 790 30, 930 70" /><circle cx="148" cy="230" r="6" /><circle cx="370" cy="205" r="6" /><circle cx="650" cy="145" r="6" /></svg><div className="container hero-grid"><div className="hero-copy"><div className="hero-kicker"><span /> THOOTHUKKUDI / INDIA / 2026</div><div className="hero-slide-code"><b>{current.code}</b><span>{slide + 1} / {slides.length}</span></div><h1 id="hero-title">{current.title.split(" ").slice(0, -3).join(" ")}<em>{current.title.split(" ").slice(-3).join(" ")}</em></h1><p>{current.copy}</p><div className="hero-slogan">CONNECTING WORLDS. DELIVERING TRUST.</div><div className="hero-actions"><a className="sienna-button" href="#services">Explore services <ArrowDownRight size={16} /></a><a className="text-link" href="mailto:infodarklines@yahoo.com">Email the desk <MoveUpRight size={15} /></a></div></div><div className="hero-side"><div className="manifest-heading"><Route size={14} /> ROUTE MANIFEST / ACTIVE</div><div className="carousel-controls"><button onClick={() => go(slide - 1)} aria-label="Previous banner">←</button>{slides.map((item, index) => <button key={item.code} className={index === slide ? "active-dot" : ""} onClick={() => go(index)} aria-label={`Show ${item.code} banner`} aria-current={index === slide}>{item.code}</button>)}<button onClick={() => go(slide + 1)} aria-label="Next banner">→</button></div><div className="route-stops">{[["TUT", "Thoothukkudi"], ["MAA", "Chennai"], ["DXB", "Dubai"], ["ANY", "Your destination"]].map(([code, name]) => <div key={code}><b>{code}</b><span>{name}</span></div>)}</div></div></div><div className="container hero-footer"><span>FREIGHT / FORWARDING / FIELDWORK</span><span>{paused ? "CAROUSEL PAUSED / HOVER TO HOLD" : "AUTO ROUTE / 6.5 SEC"}</span><span>01 — 04</span></div></section>
+
+      <section id="about" className="paper-section about-section route-reveal"><div className="container about-grid"><div className="about-image"><img src="/images/im1.webp" alt="Logistics planning beside a port" /><span>ORIGIN / THOOTHUKKUDI</span></div><div><Label code="01 / ABOUT">The line</Label><h2>Good logistics is a <em>calm</em> sequence of decisions.</h2><div className="about-copy"><p>Darklines brings port knowledge, multimodal thinking, and documentation discipline to cargo that cannot afford guesswork. From the first brief to the final handover, we keep the route legible.</p><p>No black boxes. No busywork. Just a clear operating plan for the people responsible for getting it there.</p></div><div className="stamps"><span>PORT-SIDE KNOWLEDGE</span><span>DOCUMENT CONTROL</span><span>ONE CLEAR CONTACT</span></div></div></div></section>
+
+      <section id="services" className="service-section route-reveal"><div className="container"><div className="service-heading"><div><Label code="02 / SERVICES">What moves with us</Label><h2>Every route has its own <em>weather.</em></h2></div><p>Choose the service you need, or bring us the full picture. We’ll help turn the moving parts into one workable plan.</p></div><div className="services-route">{services.map(([code, title, copy, Icon], index) => <a className={`service-card ${index % 2 ? "offset" : ""}`} href="#enquiry" key={code}><div className="service-card-top"><span>{code}</span><Icon size={22} /></div><h3>{title}</h3><p>{copy}</p><div>Plot this route <ArrowRight size={14} /></div></a>)}</div><div className="manifest-tail"><span /> MANIFEST SEQUENCE CONTINUES / 08 CHECKPOINTS <ArrowRight size={14} /></div></div></section>
+
+      <section id="capabilities" className="capability-section route-reveal"><div className="container capability-grid"><div><Label code="03 / CAPABILITIES">Operating range</Label><h2>The plan is only as good as the <em>handoff.</em></h2><p>We build the handoffs into the route: carrier to terminal, document to customs desk, warehouse to final mile.</p></div><div className="capability-list">{[[Globe2, "Connected routes", "A local operating eye with a global view."], [ShieldCheck, "Controlled details", "The right document at the right stage."], [Container, "Port fluency", "Grounded in the rhythm of terminals."], [Anchor, "Commercial sense", "Practical options shaped around your cargo."]].map(([Icon, title, copy]) => <div key={title as string}><Icon size={20} /><h3>{title as string}</h3><p>{copy as string}</p></div>)}</div></div></section>
+
+      <section className="fieldwork-band route-reveal"><div className="container"><span>04 / FIELDWORK</span><img src="/images/im2.webp" alt="Loading bay and port operations" /></div></section>
+      <section id="enquiry" className="paper-section enquiry-section route-reveal"><div className="container enquiry-grid"><div><Label code="05 / ENQUIRY">Start the conversation</Label><h2>Tell us what needs to <em>move.</em></h2><p>Send the essentials. We’ll come back with the questions that matter and a practical route to consider.</p><a className="sienna-button" href="mailto:infodarklines@yahoo.com?subject=Shipping%20enquiry%20for%20Darklines">Send an enquiry <Send size={16} /></a></div><div className="enquiry-list"><span>USEFUL TO INCLUDE</span>{["Origin and destination", "Cargo type and dimensions", "Target pickup or delivery date", "Customs or packaging needs"].map((item) => <p key={item}><Check size={16} />{item}</p>)}<b>DIRECT LINE / 8428306116</b><div className="department-mails"><span>DEPARTMENT DESK</span><a href="mailto:sales@darklines.in">Sales <Mail size={13} /> sales@darklines.in</a><a href="mailto:docs@darklines.in">Docs <Mail size={13} /> docs@darklines.in</a><a href="mailto:accounts@darklines.in">Accounts <Mail size={13} /> accounts@darklines.in</a></div></div></div></section>
+    </main>
+
+    <footer id="contact" className="site-footer"><div className="container footer-grid"><div><Brand /><p>Freight, forwarding, and fieldwork for cargo that deserves a clear route.</p></div><div><span>FIND THE LINE</span><address>No -97G/1A, Teachers Colony 1 Street,<br />Chidambaranagar,<br />Thoothukkudi - 628008</address></div><div><span>TALK TO THE DESK</span><a href="tel:8428306116"><Headphones size={15} />8428306116</a><a href="mailto:infodarklines@yahoo.com"><Mail size={15} />infodarklines@yahoo.com</a><a href="mailto:sales@darklines.in"><Mail size={15} />sales@darklines.in</a><a href="mailto:docs@darklines.in"><Mail size={15} />docs@darklines.in</a><a href="mailto:accounts@darklines.in"><Mail size={15} />accounts@darklines.in</a></div></div><div className="container footer-bottom"><span>© 2026 DARKLINES</span><span>BUILT FOR THE NEXT HANDOFF</span></div></footer>
+  </div>;
+}
