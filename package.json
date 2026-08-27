@@ -3,14 +3,20 @@
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
+
+  "engines": {
+    "node": "22.x"
+  },
+
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
+"build": "vite build",
     "start": "NODE_ENV=production node dist/index.js",
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
     "format": "prettier --write ."
   },
+
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-accordion": "^1.2.12",
@@ -64,6 +70,7 @@
     "wouter": "^3.3.5",
     "zod": "^4.1.12"
   },
+
   "devDependencies": {
     "@builder.io/vite-plugin-jsx-loc": "^0.1.1",
     "@tailwindcss/typography": "^0.5.15",
@@ -76,8 +83,7 @@
     "@vitejs/plugin-react": "^5.0.4",
     "add": "^2.0.6",
     "autoprefixer": "^10.4.20",
-    "esbuild": "^0.25.0",
-    "pnpm": "^10.15.1",
+    "esbuild": "^0.25.10",
     "postcss": "^8.4.47",
     "prettier": "^3.6.2",
     "tailwindcss": "^4.1.14",
@@ -88,5 +94,6 @@
     "vite-plugin-manus-runtime": "^0.0.58",
     "vitest": "^2.1.4"
   },
+
   "packageManager": "pnpm@10.4.1"
 }
