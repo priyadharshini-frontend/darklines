@@ -67,5 +67,27 @@ export default function Home() {
       <section id="resources" className="resources-section paper-section route-reveal"><div className="container"><div className="resources-heading"><div><Label code="05 / RESOURCES">The Darklines desk</Label><h2>Keep the next handoff <em>moving.</em></h2></div><p>Download the practical tools behind the Darklines operating line: our service catalogue, ready-to-use email signature, and introduction mail.</p></div><div className="resource-grid"><a className="resource-card" href="/images/catelogue.pdf" target="_blank" rel="noreferrer"><span>PDF / 01</span><h3>Services catalogue</h3><p>Share our freight, forwarding, warehousing, and customs capabilities with your next customer.</p><b>Open catalogue <ArrowRight size={14} /></b></a><a className="resource-card" href="/images/signature.html" target="_blank" rel="noreferrer"><span>HTML / 02</span><h3>Email signature</h3><p>Open the copy-paste company signature with the Darklines logo, slogan, and contact lines.</p><b>Open signature <ArrowRight size={14} /></b></a><a className="resource-card" href="/images/greeting.md" target="_blank" rel="noreferrer"><span>MAIL / 03</span><h3>Greeting mail</h3><p>Use the polished introduction template for new customers, agents, and shipping partners.</p><b>Open greeting mail <ArrowRight size={14} /></b></a></div></div></section>\n      </main>
 
     <footer id="contact" className="site-footer"><div className="container footer-grid"><div><Brand /><p>Freight, forwarding, and fieldwork for cargo that deserves a clear route.</p></div><div><span>FIND THE LINE</span><address>No -97G/1A, Teachers Colony 1 Street,<br />Chidambaranagar,<br />Thoothukkudi - 628008</address></div><div><span>TALK TO THE DESK</span><a href="tel:8428306116"><Headphones size={15} />8428306116</a><a href="mailto:infodarklines@yahoo.com"><Mail size={15} />infodarklines@yahoo.com</a><a href="mailto:sales@darklines.in"><Mail size={15} />sales@darklines.in</a><a href="mailto:docs@darklines.in"><Mail size={15} />docs@darklines.in</a><a href="mailto:accounts@darklines.in"><Mail size={15} />accounts@darklines.in</a></div></div><div className="container footer-bottom"><span>© 2026 DARKLINES</span><span>BUILT FOR THE NEXT HANDOFF</span></div></footer>
+     <a
+  href="https://wa.me/918428306116?text=Hello%20Darklines%20Shipping%2C%20I%20would%20like%20to%20know%20more%20about%20your%20shipping%20services."
+  target="_blank"
+  rel="noopener noreferrer"
+  className="whatsapp-float"
+  aria-label="Chat with Darklines Shipping on WhatsApp"
+>
+  <svg
+    viewBox="0 0 32 32"
+    aria-hidden="true"
+    className="whatsapp-icon"
+  >
+    <path
+      fill="currentColor"
+      d="M19.11 17.21c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.13-.42-2.15-1.34-.79-.7-1.32-1.57-1.48-1.84-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.47.07-.72.34-.25.27-.95.93-.95 2.27s.97 2.63 1.11 2.81c.14.18 1.91 2.92 4.63 4.1.65.28 1.16.45 1.56.57.66.21 1.26.18 1.73.11.53-.08 1.6-.65 1.82-1.27.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32z"
+    />
+    <path
+      fill="currentColor"
+      d="M16.01 3.2a12.77 12.77 0 0 0-10.98 19.3L3.2 28.8l6.44-1.69A12.8 12.8 0 1 0 16.01 3.2zm0 23.4c-2.01 0-3.98-.54-5.7-1.57l-.41-.24-3.82 1 1.02-3.72-.27-.43a10.6 10.6 0 1 1 9.18 4.96z"
+    />
+  </svg>
+</a>
   </div>;
 }

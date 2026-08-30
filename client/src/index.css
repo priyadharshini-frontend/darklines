@@ -38,3 +38,44 @@
 @media (max-width:900px) { .desktop-nav { display:none; } .menu-toggle { display:flex; } .hero-grid,.about-grid,.service-heading,.capability-grid,.enquiry-grid,.resources-heading { grid-template-columns:1fr; gap:3rem; } .hero-grid { min-height:680px; padding-top:6rem; } .hero-side { display:none; } .hero-route { width:100%; height:32%; } .services-route,.resource-grid { grid-template-columns:repeat(2,1fr); } .service-card.offset { transform:none; } .service-card.offset:hover { transform:translateY(-5px) rotate(-.4deg); } .about-copy { grid-template-columns:1fr; } .about-copy p:last-child { border-left:0; border-top:1px solid #e3262f; padding:1rem 0 0; } .footer-grid { grid-template-columns:1fr 1fr; gap:3rem; } }
 @media (max-width:600px) { .header-inner { min-height:86px; } .brand-image { width:160px; height:46px; } .brand-slogan { display:block; font-size:.39rem!important; letter-spacing:.11em!important; } .top-strip-inner { font-size:.6rem; } .ship-hero { min-height:650px; } .hero-grid { min-height:600px; padding-top:5rem; } .hero-copy h1 { font-size:clamp(3.4rem,14vw,5rem); } .hero-copy p { font-size:.92rem; } .hero-footer { font-size:.55rem; } .services-route,.resource-grid { grid-template-columns:1fr; } .service-card { min-height:220px; } .footer-grid { grid-template-columns:1fr; gap:2.5rem; } .footer-bottom { flex-direction:column; gap:.6rem; } .about-section,.service-section,.capability-section,.enquiry-section { padding-block:5rem; } }
 @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .route-reveal { opacity:1; transform:none; } .hero-copy,.hero-side,.hero-route { transform:none!important; } .ship-hero::before { animation:none; } .hero-video { display:none; } *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }
+.whatsapp-float {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+}
+
+.whatsapp-icon {
+  width: 31px;
+  height: 31px;
+}
+
+@media (max-width: 640px) {
+  .whatsapp-float {
+    width: 52px;
+    height: 52px;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .whatsapp-icon {
+    width: 28px;
+    height: 28px;
+  }
+}
